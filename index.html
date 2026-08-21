@@ -74,34 +74,21 @@
     <source src="jingle-geparu.mp3" type="audio/mpeg">
 </audio>
 
-<button id="musicButton" class="music-button">
-    🎵 Putar Jingle
-</button>
-
 <script>
-
 const music = document.getElementById("geparuMusic");
-const button = document.getElementById("musicButton");
 
-button.addEventListener("click", function () {
+let musicStarted = false;
 
-    if (music.paused) {
-
-        music.play();
-
-        button.innerHTML = "🔊 Jingle ON";
-
-    } else {
-
-        music.pause();
-
-        button.innerHTML = "🎵 Putar Jingle";
-
+function startMusic() {
+    if (!musicStarted) {
+        music.play().then(() => {
+            musicStarted = true;
+        }).catch(() => {});
     }
+}
 
-});
-
+// Mulai musik saat warga pertama kali berinteraksi
+document.addEventListener("click", startMusic, { once: true });
+document.addEventListener("touchstart", startMusic, { once: true });
+document.addEventListener("keydown", startMusic, { once: true });
 </script>
-
-</body>
-</html>
